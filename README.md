@@ -9,7 +9,17 @@ _does not provide any helpers for displaying in your theme._
 You can install through composer
 
 ```
-composer require arcath/post-formats
+...
+"repositories": [
+      {
+        "type": "vcs",
+        "url": "https://github.com/kyle-jennings/post-formats-plus"
+      }
+    ],
+    "require": {
+      "kyle-jennings/post-formats-plus" : "dev-master"
+    },
+...
 ```
 
 ## Usage
