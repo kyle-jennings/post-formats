@@ -1,11 +1,16 @@
 {
-  "name": "arcath/post-formats",
+  "name": "kyle-jennings/post-formats-plus",
   "description": "Post Format meta boxes for WordPress",
   "require": {
     "php": "^5.3.3 || ^7.0"
   },
   "license": "MIT",
   "authors": [
+    {
+      "name": "Kyle Jennings",
+      "homepage": "https://kylejenningsdesign.com",
+      "role": "Developer"
+    },
     {
       "name": "Adam Laycock",
       "email": "adam@arcath.net",
