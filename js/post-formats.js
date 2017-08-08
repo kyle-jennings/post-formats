@@ -1,0 +1,32 @@
+
+jQuery(document).ready(function($){
+  hide_format_boxes();
+
+  if($("#post-formats-select").length) {
+    var selectedPostFormat = $("input[name='post_format']:checked").val();
+
+    var post_formats = ['aside', 'status', 'gallery', 'image', 'link', 'quote', 'audio', 'video', 'chat'];
+
+    if($.inArray(selectedPostFormat, post_formats) != '-1') {
+			$('#post_formats_' + selectedPostFormat).show();
+		}
+
+    $("input[name='post_format']:radio").change(function() {
+			hide_format_boxes();
+			if($.inArray($(this).val(),post_formats) != '-1') {
+				$('#post_formats_' + $(this).val()).show()
+			}
+		});
+  }
+
+});
+
+function hide_format_boxes(){
+
+  var post_formats = ['aside', 'status', 'gallery', 'image', 'link', 'quote', 'audio', 'video', 'chat'];
+  post_formats = post_formats.map( (a) => {
+    return '#post_formats_'+a;
+  }).join(', ');
+
+  $(post_formats).hide();
+}
