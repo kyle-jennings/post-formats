@@ -1,6 +1,6 @@
 <?php
 
-class post_formats_audio
+class PostFormatAudio
 {
     public $screens = array();
 
@@ -9,7 +9,7 @@ class post_formats_audio
         $this->screens = $screens;
     }
 
-    
+
     public function register_audio(){
         foreach($this->screens as $screen){
             add_meta_box(
@@ -17,7 +17,7 @@ class post_formats_audio
                 __('Audio', 'post-formats'),
                 array($this, 'audio_meta_box'),
                 $screen,
-                'normal',
+                'top',
                 'default'
             );
         }
@@ -26,14 +26,25 @@ class post_formats_audio
 
     public function audio_meta_box($post){
         wp_nonce_field('post_format_audio_nonce', 'post_format_audio_nonce');
-        $audio = get_post_meta($post->ID, '_post_format_audio', true);
+        $url = get_post_meta($post->ID, '_post_format_audio', true);
         ?>
-        <p style="text-align:center;">
-            <audio src="<?php echo(wp_get_attachment_url($audio)); ?>" id="post_formats_audio_preview" controls="controls"></audio>
-        </p>
-        <input type="hidden" id="post_format_audio" name="post_format_audio" value="<?php echo($audio); ?>" />
-        <input type="button" id="post_format_audio_select" value="<?php _e('Select Audio', 'post_formats'); ?>" />
+        <div class="pfp-audio-holder">
+            <?php echo bootswatch_get_the_audio_markup($url); ?>
+        </div>
+
+        <input type="hidden" id="post_format_audio" name="post_format_audio" value="<?php echo($url); ?>" />
+
+
+        <a class="button" data-filter="audio" id="post_format_audio_select">
+            <span class="dashicons dashicons-format-audio"></span>
+            Select Audio
+        </a>
+
+        <span class="pfp-or-hr">or use an oembed url</span>
+        <input type="url" id="post_format_audio_url" value="<?php echo($url); ?>" />
         <a class="js--pfp-remove-audio" href="#" >Remove Audio</a>
+
+
         <?php
     }
 
@@ -48,6 +59,8 @@ class post_formats_audio
 
         if(isset($_POST['post_format_audio'])){
             update_post_meta($post_id, '_post_format_audio', $_POST['post_format_audio']);
+        }else {
+            delete_post_meta($post_id, '_post_format_audio');
         }
     }
 

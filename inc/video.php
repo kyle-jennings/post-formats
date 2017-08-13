@@ -17,7 +17,7 @@ class PostFormatVideo{
                 __('Video', 'post-formats'),
                 array($this, 'video_meta_box'),
                 $screen,
-                'normal',
+                'top',
                 'default'
             );
         }
@@ -43,10 +43,8 @@ class PostFormatVideo{
 
         <input type="hidden" id="post_format_video" name="post_format_video" value="<?php echo($url); ?>" />
 
-        <div class="pfp-media-holder">
-            <?php #echo $this->get_the_video_markup($url); ?>
-            <video class="<?php echo $this->displayVideo($url); ?> pfp-video" src="<?php echo(esc_url($url)); ?>" controls="controls"></video>
-            <iframe class="<?php echo $this->displayVideo($url, 'youtube'); ?> pfp-embed" src="<?php echo esc_url( $this->youtubeEmbedLink($url)) ; ?>" frameborder="0"></iframe>
+        <div class="pfp-video-holder">
+            <?php echo bootswatch_get_the_video_markup($url); ?>
         </div>
 
         <a class="button" data-filter="video" id="post_format_video_select">
@@ -159,7 +157,5 @@ class PostFormatVideo{
         $id = $this->get_youtube_id($url);
         return 'https://www.youtube.com/embed/'.$id;
     }
-
-
 
 }

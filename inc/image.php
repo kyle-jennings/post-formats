@@ -24,14 +24,11 @@ class PostFormatImage
 
 
     public function image_meta_box($post){
-        wp_nonce_field('post_format_image_nonce', 'post_format_image_nonce');
-        $image = get_post_meta($post->ID, '_post_format_image', true);
+        
         ?>
         <p style="text-align:center;">
-            <img src="<?php echo(wp_get_attachment_image_src($image, 'thumbnail')[0]); ?>" id="post_format_image_thumb" />
+            The post format uses the "featured image".
         </p>
-        <input type="hidden" id="post_format_image" name="post_format_image" value="<?php echo($image); ?>" />
-        <input type="button" id="post_format_image_select" value="<?php _e('Select Image', 'post-formats'); ?>" />
         <?php
     }
 

@@ -27,18 +27,21 @@ class PostFormatLink
         $linkURL = get_post_meta($post->ID, '_post_format_link_url', true);
         $linkText = get_post_meta($post->ID, '_post_format_link_text', true);
         ?>
-        <p>
-            <label>
-                <?php _e('Link Text', 'post_formats'); ?>
-                <input type="text" value="<?php echo($linkText); ?>" name="post_format_link_text" />
-            </label>
-        </p>
-        <p>
-            <label>
-                <?php _e('Link URL', 'post_formats'); ?>
-                <input type="text" value="<?php echo($linkURL); ?>" name="post_format_link_url" />
-            </label>
-        </p>
+        <div class="link-box">
+            <p>
+                <label>
+                    <?php _e('Link Text', 'post_formats'); ?>
+                    <input type="text" value="<?php echo($linkText); ?>" name="post_format_link_text" />
+                </label>
+            </p>
+            <p>
+                <label>
+                    <?php _e('Link URL', 'post_formats'); ?>
+                    <input type="text" value="<?php echo($linkURL); ?>" name="post_format_link_url" />
+                </label>
+            </p>
+            <a class="pfp-js-remove-link" href="#">Remove Link</a>
+        </div>
         <?php
     }
 
@@ -53,10 +56,14 @@ class PostFormatLink
 
         if(isset($_POST['post_format_link_url'])){
             update_post_meta($post_id, '_post_format_link_url', $_POST['post_format_link_url']);
+        }else {
+            delete_post_meta($post_id, '_post_format_link_url');
         }
 
         if(isset($_POST['post_format_link_text'])){
             update_post_meta($post_id, '_post_format_link_text', $_POST['post_format_link_text']);
+        }else {
+            delete_post_meta($post_id, '_post_format_link_text');
         }
     }
 

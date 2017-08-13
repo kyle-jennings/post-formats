@@ -1,6 +1,10 @@
 
+// more or less just hides and shows the various metaboxes
 jQuery(document).ready(function($){
+
   hide_format_boxes();
+  clearLink();
+
 
   if($("#post-formats-select").length) {
     var selectedPostFormat = $("input[name='post_format']:checked").val();
@@ -29,4 +33,13 @@ function hide_format_boxes(){
   }).join(', ');
 
   $(post_formats).hide();
+}
+
+
+function clearLink() {
+  $('.pfp-js-remove-link').on('click', function(e){
+    e.preventDefault();
+    $(this).closest('.link-box').find('input').val('');
+
+  });
 }

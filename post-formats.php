@@ -1,5 +1,5 @@
 <?php
-$files = array( 'aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat');
+$files = array( 'aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat', '_ajax');
 foreach($files as $file)
     require_once 'inc/' . $file . '.php';
 
@@ -29,6 +29,13 @@ class PostFormats{
         add_action('init', array($this, 'init'), 11);
 
         add_action('admin_enqueue_scripts', array($this, 'enqueue'));
+
+        add_action('edit_form_after_title', function() {
+            global $post, $wp_meta_boxes;
+
+            do_meta_boxes(get_current_screen(), 'top', $post);
+            unset( $wp_meta_boxes[get_post_type($post)]['top'] );
+        });
     }
 
     public function init(){

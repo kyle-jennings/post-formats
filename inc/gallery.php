@@ -9,6 +9,7 @@ class PostFormatGallery{
         $this->screens = $screens;
     }
 
+
     public function register_gallery(){
         foreach($this->screens as $screen){
             add_meta_box(
@@ -16,7 +17,7 @@ class PostFormatGallery{
                 __('Gallery', 'post-formats'),
                 array($this, 'gallery_meta_box'),
                 $screen,
-                'normal',
+                'top',
                 'default'
             );
         }
@@ -57,8 +58,11 @@ class PostFormatGallery{
             return;
         }
 
+
         if(isset($_POST['post_format_gallery'])){
             update_post_meta($post_id, '_post_format_gallery', $_POST['post_format_gallery']);
+        }else {
+            delete_post_meta($post_id, '_post_format_gallery');
         }
     }
 
