@@ -27,23 +27,29 @@ class PostFormatAudio
     public function audio_meta_box($post){
         wp_nonce_field('post_format_audio_nonce', 'post_format_audio_nonce');
         $url = get_post_meta($post->ID, '_post_format_audio', true);
+        $media = 'audio';
         ?>
-        <div class="pfp-audio-holder">
-            <?php echo bootswatch_get_the_audio_markup($url); ?>
+        <div class="pfp-media-holder">
+            <?php echo call_user_func('pfp_get_the_'.$media.'_markup',$url); ?>
         </div>
 
-        <input type="hidden" id="post_format_audio" name="post_format_audio" value="<?php echo($url); ?>" />
+        <input class="post_format_value" type="hidden" id="post_format_<?php echo $media; ?>"
+            name="post_format_<?php echo $media; ?>" value="<?php echo($url); ?>" />
 
 
-        <a class="button" data-filter="audio" id="post_format_audio_select">
-            <span class="dashicons dashicons-format-audio"></span>
-            Select Audio
+        <a class="button pfp-js-media-library" data-media="<?php echo $media; ?>"
+            id="post_format_<?php echo $media; ?>_select">
+            <span class="dashicons dashicons-format-<?php echo $media; ?>"></span>
+            Select <?php echo ucfirst($media); ?>
         </a>
 
         <span class="pfp-or-hr">or use an oembed url</span>
-        <input type="url" id="post_format_audio_url" value="<?php echo($url); ?>" />
-        <a class="js--pfp-remove-audio" href="#" >Remove Audio</a>
 
+        <input class="post_format_url" data-media="<?php echo $media; ?>" type="url"
+            id="post_format_<?php echo $media; ?>_url" value="<?php echo($url); ?>" />
+
+        <a class="pfp-js-remove-media" data-media="<?php echo $media; ?>"
+            href="#" >Remove <?php echo ucfirst($media); ?></a>
 
         <?php
     }

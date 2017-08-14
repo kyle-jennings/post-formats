@@ -1,0 +1,21 @@
+{
+  "name": "bootswatch",
+  "version": "1",
+  "homepage": "https://github.com/rugbert/bootswatch",
+  "description": "WordPress theme built with _s, Bootstrap, and the WP Customizer",
+  "authors": [
+    "Kyle Jennings <kjennings@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "/js/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass" : "3.3.7",
+    "font-awesome" : "*"
+  }
+}

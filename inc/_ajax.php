@@ -1,12 +1,14 @@
 <?php
 
-function pfp_oembed() {
+function pfp_oembed($url = null, $type = null) {
 
-    $type = $_POST['pfpType'];
-    $url = $_POST['pfpURL'];
+    if(!$url && !$type) {
+        $type = $_POST['pfpType'];
+        $url = $_POST['pfpURL'];
+    }
 
 
-    $func = 'bootswatch_get_the_'.lcfirst($type).'_markup';
+    $func = 'pfp_get_the_'.lcfirst($type).'_markup';
     error_log($func);
     $html = call_user_func($func, $url);
 

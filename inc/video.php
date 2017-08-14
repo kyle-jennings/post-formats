@@ -38,23 +38,30 @@ class PostFormatVideo{
 
         wp_nonce_field('post_format_video_nonce', 'post_format_video_nonce');
         $url = get_post_meta($post->ID, '_post_format_video', true);
-        $type = $this->get_video_type($url);
+        $media = 'video';
         ?>
 
-        <input type="hidden" id="post_format_video" name="post_format_video" value="<?php echo($url); ?>" />
-
-        <div class="pfp-video-holder">
-            <?php echo bootswatch_get_the_video_markup($url); ?>
+        <div class="pfp-media-holder">
+            <?php echo call_user_func('pfp_get_the_'.$media.'_markup',$url); ?>
         </div>
 
-        <a class="button" data-filter="video" id="post_format_video_select">
-            <span class="dashicons dashicons-video-alt3"></span>
-            Select Video
+        <input class="post_format_value" type="hidden" id="post_format_<?php echo $media; ?>"
+            name="post_format_<?php echo $media; ?>" value="<?php echo($url); ?>" />
+
+
+        <a class="button pfp-js-media-library" data-media="<?php echo $media; ?>"
+            id="post_format_<?php echo $media; ?>_select">
+            <span class="dashicons dashicons-format-<?php echo $media; ?>"></span>
+            Select <?php echo ucfirst($media); ?>
         </a>
 
-        <span class="pfp-or-hr">or use YouTube URL:</span>
-        <input type="url" id="post_format_video_url" value="<?php echo $type == 'youtube' ? $url : ''; ?>" />
-        <a class="js--pfp-remove-video" href="#" >Remove Video</a>
+        <span class="pfp-or-hr">or use an oembed url</span>
+
+        <input class="post_format_url" data-media="<?php echo $media; ?>" type="url"
+            id="post_format_<?php echo $media; ?>_url" value="<?php echo($url); ?>" />
+
+        <a class="pfp-js-remove-media" data-media="<?php echo $media; ?>"
+            href="#" >Remove <?php echo ucfirst($media); ?></a>
 
         <?php
     }

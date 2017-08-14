@@ -1,0 +1,11 @@
+# ignore npm, bower, and compoeser packages
+_dev/node_modules/
+_dev/bower_components/
+vendor/
+composer.lock
+
+# ignore built asssets
+assets/
+
+# ignore this OSX bs
+.DS_Store

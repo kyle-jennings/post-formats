@@ -1,5 +1,5 @@
 <?php
-$files = array( 'aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat', '_ajax');
+$files = array( 'aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat', '_ajax', '_markup');
 foreach($files as $file)
     require_once 'inc/' . $file . '.php';
 
@@ -27,15 +27,17 @@ class PostFormats{
         }
 
         add_action('init', array($this, 'init'), 11);
-
         add_action('admin_enqueue_scripts', array($this, 'enqueue'));
 
+        // move the metaboxes to over the content
         add_action('edit_form_after_title', function() {
             global $post, $wp_meta_boxes;
 
             do_meta_boxes(get_current_screen(), 'top', $post);
             unset( $wp_meta_boxes[get_post_type($post)]['top'] );
         });
+
+
     }
 
     public function init(){
@@ -69,8 +71,9 @@ class PostFormats{
         global $typenow;
 
         if(in_array($typenow, $this->screens)){
-            wp_enqueue_style('post_formats_css', $this->get_base_uri() . '/css/post-formats.css');
-            wp_enqueue_script('post_formats_js', $this->get_base_uri() . '/js/post-formats.js', array('jquery'));
+            wp_enqueue_style('post_formats_css', $this->get_base_uri() . '/assets/css/post-formats.css');
+            wp_enqueue_script('post_formats_js', $this->get_base_uri() . '/assets/js/post-formats.js', array('jquery'));
+            wp_enqueue_script('post_media_js', $this->get_base_uri() . '/assets/js/media.js', array('jquery'));
 
 
             // examine($this->formats);
