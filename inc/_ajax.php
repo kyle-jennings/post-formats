@@ -1,5 +1,19 @@
 <?php
 
+
+function pfp_shortcode($str = null) {
+    if(!$str || empty($str))
+        $str = $_POST['pfpSTR'];
+
+    $str = wp_kses_stripslashes($str);
+    echo do_shortcode($str);
+
+    exit();
+
+}
+add_action('wp_ajax_pfp_shortcode', 'pfp_shortcode');
+
+
 function pfp_oembed($url = null, $type = null) {
 
     if(!$url && !$type) {
@@ -9,7 +23,7 @@ function pfp_oembed($url = null, $type = null) {
 
 
     $func = 'pfp_get_the_'.lcfirst($type).'_markup';
-    error_log($func);
+
     $html = call_user_func($func, $url);
 
     echo $html;

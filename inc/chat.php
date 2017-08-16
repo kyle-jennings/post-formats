@@ -18,7 +18,7 @@ class PostFormatChat
                 __('Chat', 'post-formats'),
                 array($this, 'chat_meta_box'),
                 $screen,
-                'normal',
+                'top',
                 'default'
             );
         }
@@ -31,31 +31,9 @@ class PostFormatChat
         if(!$chat){
             $chat = array();
         }
-
-        $i = 0;
-        ?>
-        <ul class="chat-log cf" id="post_format_chat_list">
-            <?php foreach($chat as $line): ?>
-                <li>
-                    <div>
-                        Name:
-                        <input type="text" name="post_format_chat[<?php echo($i); ?>][author]" value="<?php echo($line['author']); ?>" placeholder="Author" />
-                    </div>
-                    <div>
-                        Message:
-                        <textarea name="post_format_chat[<?php echo($i); ?>][body]"><?php echo($line['body']); ?></textarea>
-                    </div>
-                </li>
-            <?php $i++; endforeach; ?>
-        </ul>
-
-        <div>
-            <script type="text/javascript">
-            window.postFormatsNextChat = <?php echo($i); ?>;
-            </script>
-            <input type="button" value="<?php _e('Add Chat Line', 'post_formats'); ?>" id="post_format_chat_add" />
-        </div>
-        <?php
+    ?>
+        <div class="chat-log cf" id="post_format_chat_log"></div>
+    <?php
     }
 
     public function chat_meta_box_save($post_id){

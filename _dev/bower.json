@@ -1,8 +1,8 @@
 {
-  "name": "bootswatch",
+  "name": "post-format-plus",
   "version": "1",
-  "homepage": "https://github.com/rugbert/bootswatch",
-  "description": "WordPress theme built with _s, Bootstrap, and the WP Customizer",
+  "homepage": "",
+  "description": "Adds post formats to your WordPress site, with nifty and intuitive user options",
   "authors": [
     "Kyle Jennings <kjennings@gmail.com>"
   ],

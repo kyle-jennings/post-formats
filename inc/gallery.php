@@ -28,24 +28,15 @@ class PostFormatGallery{
         wp_nonce_field('post_format_gallery_nonce', 'post_format_gallery_nonce');
         $gallery = get_post_meta($post->ID, '_post_format_gallery', true);
 
-        if(!$gallery){
-            $gallery = array();
-        }
-
         ?>
         <p>
             <?php _e('Select Images to add to your gallery here.', 'post-formats'); ?>
-            <input type="button" value="Add Images" id="post_format_gallery_add" />
+            <input type="button" value="Manage Gallery" id="post_format_gallery_add" />
+            <input class="post_format_value" type="hidden" name="post_format_gallery" value="<?php echo($gallery); ?>" />
         </p>
-        <ul id="post_format_gallery_list">
-            <?php foreach($gallery as $image): ?>
-                <li>
-                    <img src="<?php echo(wp_get_attachment_image_src($image, 'thumbnail')[0]); ?>" /><br />
-                    <input type="hidden" name="post_format_gallery[]" value="<?php echo($image); ?>" />
-                    <a href="#" class="gallery_remove"><?php _e('Remove', 'post-formats'); ?></a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
+        <div class="pfp-shortcode-holder" id="post_format_gallery_list">
+            <?php echo do_shortcode('[gallery link="none" ids="'. $gallery. '"]');?>
+        </div>
         <?php
     }
 

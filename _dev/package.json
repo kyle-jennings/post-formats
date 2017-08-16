@@ -1,5 +1,5 @@
 {
-  "name" : "Bootswatch",
+  "name" : "post-format-plus",
   "version" : "1.0.0",
   "devDependencies" : {
     "aliasify" : "2.0.0",
@@ -26,7 +26,8 @@
     "gulp-watch" : "4.3.5",
     "gulp-wp-pot" : "2.0.4",
     "imagemin-pngquant" : "4.2.2",
-    "three" : "0.86.0",
+    "react": "15.6.1",
+    "react-dom": "15.6.1",
     "vinyl-transform" : "1.0.0",
     "vinyl-source-stream" : "1.1.0"
   }

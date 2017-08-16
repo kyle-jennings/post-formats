@@ -72,23 +72,7 @@ class PostFormats{
 
         if(in_array($typenow, $this->screens)){
             wp_enqueue_style('post_formats_css', $this->get_base_uri() . '/assets/css/post-formats.css');
-            wp_enqueue_script('post_formats_js', $this->get_base_uri() . '/assets/js/post-formats.js', array('jquery'));
-            wp_enqueue_script('post_media_js', $this->get_base_uri() . '/assets/js/media.js', array('jquery'));
-
-
-            // examine($this->formats);
-            foreach($this->formats as $format){
-
-                $file = $this->get_base_path() . '/js/' . $format . '.js';
-
-                // examine($this->get_base_path() . '/js/' . $format . '.js');
-                if(!is_readable($file))
-                    continue;
-
-                $handle = 'post_format_'.$format.'_js';
-                $uri = $this->get_base_uri() . '/js/' . $format . '.js';
-                wp_enqueue_script($handle, $uri, array('jquery', 'post_formats_js'), true );
-            }
+            wp_enqueue_script('post_formats_js', $this->get_base_uri() . '/assets/js/post-formats.js', array('jquery'), null, true);
 
         }
     }

@@ -1,0 +1,36 @@
+.gallery::before,
+.gallery::after {
+    content: " ";
+    display: table;
+}
+
+.gallery::after {
+    clear: both;
+}
+
+.gallery-item {
+    float: left;
+    margin:0 1em 1em 0;
+    width: 75px;
+    
+    a {
+        display: block;
+    }
+
+
+
+    // 1 column
+    .gallery-columns-1 & {
+        float: none;
+
+        a {
+            text-align: center;
+        }
+    }
+
+    // set the image height ot auto so they do no stretch
+    img {
+        height: auto;
+    }
+
+}

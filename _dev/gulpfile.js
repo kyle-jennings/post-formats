@@ -45,7 +45,7 @@ paths.jsGlob = paths.srcPath + '/js/**/*.js';
 // ---------------------------------------------------------------------------
 //  The frontend assets
 // ---------------------------------------------------------------------------
-gulp.task('css', ['sass'], function() {
+gulp.task('css', ['scss'], function() {
 
   return gulp.src( paths.assetsPath + '/css/post-format.css')
     .pipe(plumber({ errorHandler: handleErrors }))
@@ -59,13 +59,13 @@ gulp.task('css', ['sass'], function() {
 /**
  * Compile Sass and run stylesheet through PostCSS.
  */
-gulp.task('sass', ['clean:css'], function() {
+gulp.task('scss', ['clean:css'], function() {
 
-  return gulp.src(paths.srcPath+'/scss/post-formats.scss')
+  return gulp.src(paths.srcPath + '/scss/post-formats.scss')
     .pipe(plumber({ errorHandler: handleErrors }))
     .pipe(sourcemaps.init())
     .pipe(sass({
-      includePaths: [ paths.scssGlob],
+      includePaths: [ paths.scssGlob ],
       errLogToConsole: true,
       outputStyle: 'expanded'
     }))
@@ -93,12 +93,10 @@ gulp.task('js',['clean:js'], function(){
     return b.bundle();
   });
 
-  return gulp.src([
-    paths.srcPath + '/js/post-formats.js',
-  ] )
+  return gulp.src( paths.srcPath + '/js/post-formats.js' )
   .pipe(plumber({ errorHandler: handleErrors }))
   .pipe(browserified)
-  .pipe(minify())
+
   .pipe(gulp.dest( paths.assetsPath + '/js' ))
   .pipe(notify({message: 'JS complete'}));
 
@@ -148,11 +146,8 @@ function handleErrors() {
  * @return {[type]} [description]
  */
 gulp.task('build', function(){
-
   gulp.start('js');
   gulp.start('css');
-
-
 });
 
 /**
@@ -169,12 +164,6 @@ gulp.task('default', function(){
  */
 gulp.task('watch', function() {
   gulp.start('build');
-  gulp.watch(paths.jsGlob, ['js']);
-});
-
-
-gulp.task('watch-js', function() {
-  gulp.start('js');
   gulp.watch(paths.jsGlob, ['js']);
   gulp.watch(paths.scssGlob, ['css']);
 });
