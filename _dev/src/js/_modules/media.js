@@ -40,8 +40,7 @@ jQuery(document).ready(function($){
 
     // if the media library is already created, open it
     if(wp.media.frames.mediaBox){
-      wp.media.frames.mediaBox.open();
-      return;
+      delete wp.media.frames.mediaBox;
     }
 
     // initialize media library
@@ -58,7 +57,7 @@ jQuery(document).ready(function($){
       media_attachment = wp.media.frames.mediaBox.state().get('selection').first().toJSON();
 
       var funcName = 'pfp' + titleCase(format) + 'Select';
-      window[funcName](media_attachment, format, $metabox);
+      pfpMediaSelect(media_attachment, format, $metabox);
 
     })
 
@@ -66,6 +65,22 @@ jQuery(document).ready(function($){
   });
 
 });
+
+
+/**
+ * set the image correctly
+ * @param  {object} media_attachment the media object sent from the wp media library
+ * @param  {string} format           what type of post format are we working with?
+ * @param  {object} $metabox         jquery object/DOM element
+ * @return {html}                  new DOM element to display the media
+ */
+function pfpMediaSelect(media_attachment, format, $metabox){
+  var $html = pfpAJAXMarkup(media_attachment.url, format, $metabox);
+
+  $metabox.find('.post_format_url').val(media_attachment.url);
+  $metabox.find('.post_format_value').val(media_attachment.url);
+
+}
 
 
 /**

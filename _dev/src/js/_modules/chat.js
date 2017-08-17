@@ -1,9 +1,16 @@
-var messages = [];
-messages.push({name: 1, text:"yo", id:Date.now()});
-messages.push({name: 1, text:"Did you see his latest tweet?", id:Date.now()});
-messages.push({name:'2', text:"hah no, what did he say now?", id:Date.now()});
+// console.log(chat);
+var messages = chat.messages ? chat.messages : [];
+// var messages = [];
+// messages.push({authorID: 1, text:"yo", id:Date.now()});
+// messages.push({authorID: 1, text:"Did you see his latest tweet?", id:Date.now()});
+// messages.push({authorID:'2', text:"hah no, what did he say now?", id:Date.now()});
 
 var authors = {1: 'Author 1', 2: 'Author 2'};
+if(chat.authors){
+  tmpauthors = chat.authors.split(',');
+  authors[1] = tmpauthors[0];
+  authors[2] = tmpauthors[1];
+}
 
 class ChatApp extends React.Component {
 
@@ -11,7 +18,7 @@ class ChatApp extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { items: this.props.messages, text: '', name: '1', authors: this.props.authors};
+    this.state = { items: this.props.messages, text: '', authorID: '1', authors: this.props.authors};
     this.addItem = this.addItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
     this.updateAuthors = this.updateAuthors.bind(this);
@@ -21,7 +28,7 @@ class ChatApp extends React.Component {
   // add a new item
   addItem(newItem) {
 
-    newItem.name = newItem.name ? newItem.name : '1';
+    newItem.authorID = newItem.authorID ? newItem.authorID : '1';
 
     if(newItem.insertItem) {
       var items = window.items = this.state.items;
@@ -37,7 +44,7 @@ class ChatApp extends React.Component {
       this.setState(prevState => ({
           items: prevState.items.concat(newItem),
           text: '',
-          name: ''
+          authorID: ''
         })
       );
     }
@@ -90,8 +97,9 @@ class AuthorNames extends React.Component {
 
   render() {
     var html = '';
-
+    var fieldAuthorNames = 'post_format_chat[authors]';
     return React.createElement('div', {className:'authors-form cf'},
+      React.createElement('input', {name:fieldAuthorNames, value: [this.props.authors[1], this.props.authors[2],], type:'hidden'}),
       React.createElement('div', null,
         React.createElement('label', null, 'Author 1'),
         React.createElement('input', {onChange: this.props.updateAuthors, 'data-author-num': 1, value: this.props.authors[1]}) ),
@@ -121,7 +129,7 @@ class ChatForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { name: '', text: ''};
+    this.state = { authorID: '', text: ''};
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -130,7 +138,7 @@ class ChatForm extends React.Component {
   onSubmit(e) {
     e.preventDefault();
     var newMsg = {
-      name: this.state.name,
+      authorID: this.state.authorID,
       text: this.state.text,
       id: Date.now(),
       insertItem: this.props.insertItem
@@ -164,7 +172,7 @@ class ChatForm extends React.Component {
         React.createElement(
           'div', null,
           React.createElement('label', null, 'Name'),
-          React.createElement('select', { name:'name', onChange: this.handleChange, value: this.state.name },
+          React.createElement('select', { name:'authorID', onChange: this.handleChange, value: this.state.authorID },
             React.createElement('option', { value: 1 }, this.props.authors[1]),
             React.createElement('option', { value: 2 }, this.props.authors[2])
 
@@ -237,12 +245,21 @@ class ChatItem extends React.Component {
   }
 
   render() {
-    var name = this.props.authors[parseInt(this.props.item.name)];
-    var className = 'message message--author-'+this.props.item.name;
+
+    var displayName = this.props.authors[parseInt(this.props.item.authorID)];
+    var className = 'message message--author-'+this.props.item.authorID;
+
+    var fieldAuthor = 'post_format_chat[messages]['+this.props.index+'][authorID]';
+    var fieldDisplayName = 'post_format_chat[messages]['+this.props.index+'][displayName]';
+    var fieldText = 'post_format_chat[messages]['+this.props.index+'][text]';
+
     return React.createElement(
       'li',
       {className: className, key: this.props.index, id:this.props.index},
-      React.createElement('h5', {className: 'message__author'}, name ),
+      React.createElement('input', {type:'hidden', name:fieldAuthor, value:this.props.item.authorID}),
+      React.createElement('input', {type:'hidden', name:fieldDisplayName, value:displayName}),
+      React.createElement('input', {type:'hidden', name:fieldText, value:this.props.item.text}),
+      React.createElement('h5', {className: 'message__author' }, displayName ),
       React.createElement('div', {className: 'message__text'},
         React.createElement('p', null, this.props.item.text),
         React.createElement('div', {className:'message__actions'},

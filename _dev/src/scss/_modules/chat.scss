@@ -60,7 +60,7 @@
 
     &::before {
         border-top: 10px solid transparent;
-        border-bottom: 10px solid transparent;
+        border-bottom: 0 solid transparent;
         content: '';
         display: block;
         height: 0;

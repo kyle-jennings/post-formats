@@ -27,10 +27,8 @@ class PostFormatChat
     public function chat_meta_box($post){
         wp_nonce_field('post_format_chat_nonce', 'post_format_chat_nonce');
         $chat = get_post_meta($post->ID, '_post_format_chat', true);
-
-        if(!$chat){
-            $chat = array();
-        }
+        // $chat = array();
+        wp_localize_script('post_formats_js', 'chat', $chat);
     ?>
         <div class="chat-log cf" id="post_format_chat_log"></div>
     <?php
@@ -46,7 +44,7 @@ class PostFormatChat
         }
 
         if(isset($_POST['post_format_chat'])){
-            print_r($_POST['post_format_chat']);
+
             update_post_meta($post_id, '_post_format_chat', $_POST['post_format_chat']);
         }else{
             delete_post_meta($post_id, '_post_format_chat');
