@@ -21,3 +21,28 @@
 #post_format_gallery_list li a{
   text-align:center;
 }
+
+
+.pfp-quote-field {
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    input,
+    textarea {
+        min-width: 300px;
+        max-width: 100%;
+        resize: none;
+    }
+
+    textarea {
+        width: 100%;
+    }
+}
+
+.pfp-aside,
+.pfp-status {
+    textarea {
+        width: 100%;
+    }    
+}

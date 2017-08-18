@@ -1,3 +1,15 @@
+
+// basically the wrapper around all the fields
+.chat-log {
+    max-width: 500px;
+}
+
+// the select field for the chatlog location
+.chat-location-wrapper {
+    margin-bottom: 10px;
+}
+
+// the fields with the author names
 .authors-form > div{
     float: left;
     margin-right: 10px;
@@ -8,6 +20,7 @@
 }
 
 
+// adding a new message either before the log, or when inserting into the log
 .new-message-form {
     > div {
         float: left;
@@ -24,10 +37,9 @@
     }
 }
 
-.chat-log {
-    margin: 0 auto;
-    max-width: 500px;
-}
+
+
+
 
 .message {
     margin-bottom: 10px;

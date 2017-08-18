@@ -37,16 +37,18 @@ class ChatApp extends React.Component {
       items.splice(index+1, 0, newItem);
 
       this.setState({
-        items: items
+        items: items,
+        text: '',
+        authorID: ''
       });
 
     }else {
-      this.setState(prevState => ({
-          items: prevState.items.concat(newItem),
+      this.setState({
+          items: this.state.items.concat(newItem),
           text: '',
           authorID: ''
-        })
-      );
+        });
+
     }
 
   }
@@ -148,7 +150,9 @@ class ChatForm extends React.Component {
       newMsg.index = this.props.index
     }
     this.props.addItem(newMsg);
-
+    this.setState({
+      text:''
+    })
   }
 
   // when the field changes, update the appropriate state prop
@@ -240,7 +244,8 @@ class ChatItem extends React.Component {
   }
 
   // remove the message from the log
-  removeThis() {
+  removeThis(e) {
+    e.preventDefault();
     this.props.removeItem( parseInt(this.props.index));
   }
 
